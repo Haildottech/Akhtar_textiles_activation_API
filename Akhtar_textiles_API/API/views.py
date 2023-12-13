@@ -17,4 +17,21 @@ class ChangeResponse(APIView):
             DynamicResponse.response_value = new_value
             return Response(f"Response value changed to: {new_value}")
         return Response("Please provide a value (True or False) to update the response.")
+    
+class DynamicResponse_desktop(APIView):
+    # Variable to hold the response
+    response_value = True
+
+    # GET request returns the current value
+    def get(self, request):
+        return Response(self.response_value)
+
+class ChangeResponse_desktop(APIView):
+    # POST request to change the response
+    def post(self, request):
+        new_value = request.data.get('value')
+        if new_value is not None:
+            DynamicResponse_desktop.response_value = new_value
+            return Response(f"Response value changed to: {new_value}")
+        return Response("Please provide a value (True or False) to update the response.")
 
